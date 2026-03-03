@@ -44,7 +44,7 @@
         "description": "歷史記錄功能說明",
         "clear": "清空",
         "cleared": "歷史記錄已清空",
-        "viewSource": "查看原影片",
+        "viewSource": "查看來源連結",
         "redownload": "重新解析",
         "linkFilled": "連結已填入",
         "clickToRedownload": "點擊解析按鈕開始重新解析",

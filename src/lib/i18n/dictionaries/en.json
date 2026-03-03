@@ -44,7 +44,7 @@
         "description": "History feature description",
         "clear": "Clear",
         "cleared": "History cleared",
-        "viewSource": "View Original",
+        "viewSource": "View Source Link",
         "redownload": "Re-parse",
         "linkFilled": "Link filled",
         "clickToRedownload": "Click parse button to start re-parsing",

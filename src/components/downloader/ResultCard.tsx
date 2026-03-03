@@ -405,9 +405,6 @@ function ImageNoteGrid({ images, title, platform, dict }: { images: string[]; ti
                     );
                 })}
             </div>
-            <p className="text-xs text-muted-foreground text-center">
-                {dict.result.imageAutoLoadedTip}
-            </p>
         </div>
     );
 } 

@@ -44,7 +44,7 @@
         "description": "历史记录功能说明",
         "clear": "清空",
         "cleared": "历史记录已清空",
-        "viewSource": "查看原视频",
+        "viewSource": "查看源链接",
         "redownload": "重新解析",
         "linkFilled": "链接已填入",
         "clickToRedownload": "点击解析按钮开始重新解析",
