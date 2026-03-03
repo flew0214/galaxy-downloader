@@ -314,15 +314,15 @@ export function UnifiedDownloader({ dict, locale }: UnifiedDownloaderProps) {
                                 </CardContent>
                             </Card>
 
-                            <div className="lg:hidden">
-                                <SideRailAd slot="5740014745" className="h-full" />
-                            </div>
-
                             <ResultCard
                                 result={parseResult}
                                     onClose={closeParseResult}
                                     dict={dict}
                             />
+
+                            <div className="lg:hidden">
+                                <SideRailAd slot="5740014745" className="h-full" />
+                            </div>
 
                             {/* 历史记录 */}
                             <DownloadHistory

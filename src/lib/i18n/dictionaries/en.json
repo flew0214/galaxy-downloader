@@ -173,7 +173,7 @@
             },
             "douyin": {
                 "name": "Douyin",
-                "summary": "Share code parsing support"
+                "summary": "Video download, image notes & share code support"
             },
             "xiaohongshu": {
                 "name": "Xiaohongshu",

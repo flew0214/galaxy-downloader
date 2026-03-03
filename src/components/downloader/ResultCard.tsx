@@ -21,7 +21,7 @@ export function ResultCard({ result, onClose, dict }: ResultCardProps) {
     if (!result) return null;
 
     const isMultiPart = result.isMultiPart && result.pages && result.pages.length > 1;
-    const isXiaohongshuImageNote = result.platform === 'xiaohongshu' && result.noteType === 'image';
+    const isImageNote = result.noteType === 'image' && !!result.images?.length;
 
     const displayTitle = result.title;
     return (
@@ -42,10 +42,11 @@ export function ResultCard({ result, onClose, dict }: ResultCardProps) {
             </CardHeader>
             <CardContent className="p-4 md:p-6">
                 <div className="space-y-4">
-                    {isXiaohongshuImageNote ? (
+                    {isImageNote ? (
                         <ImageNoteGrid
                             images={result.images!}
                             title={displayTitle}
+                            platform={result.platform}
                             dict={dict}
                         />
                     ) : isMultiPart ? (
@@ -167,7 +168,7 @@ function MultiPartList({ pages, currentPage, dict }: { pages: PageInfo[]; curren
     );
 }
 
-function ImageNoteGrid({ images, title, dict }: { images: string[]; title: string; dict: Dictionary }) {
+function ImageNoteGrid({ images, title, platform, dict }: { images: string[]; title: string; platform: string; dict: Dictionary }) {
     // 合并的状态类型
     type ImageLoadState = {
         loading: boolean;
@@ -198,10 +199,14 @@ function ImageNoteGrid({ images, title, dict }: { images: string[]; title: strin
             await Promise.all(
                 images.map(async (imageUrl, index) => {
                     try {
+                        const refererMap: Record<string, string> = {
+                            xiaohongshu: 'https://www.xiaohongshu.com/',
+                            douyin: 'https://www.douyin.com/',
+                        };
                         const response = await axios.get(imageUrl, {
                             responseType: 'blob',
                             headers: {
-                                'Referer': 'https://www.xiaohongshu.com/'
+                                'Referer': refererMap[platform] ?? 'https://www.douyin.com/'
                             }
                         });
                         const blobUrl = URL.createObjectURL(response.data);

@@ -173,7 +173,7 @@
             },
             "douyin": {
                 "name": "抖音",
-                "summary": "支援口令解析"
+                "summary": "支援影片下載、圖文筆記、口令解析"
             },
             "xiaohongshu": {
                 "name": "小紅書",
