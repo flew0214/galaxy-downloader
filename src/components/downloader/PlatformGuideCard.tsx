@@ -52,7 +52,7 @@ export function PlatformGuideCard({ dict }: PlatformGuideCardProps) {
                     </div>
                 </div>
 
-                {/* 更多平台预告 */}}
+                {/* 更多平台预告 */}
                 <div className="text-center text-xs text-muted-foreground pt-2 border-t">
                     {dict.guide.platformSupport.comingSoon}
                 </div>
