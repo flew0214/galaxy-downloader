@@ -72,7 +72,7 @@ export function HelpCards({ dict }: HelpCardsProps) {
                         </div>
                     </div>
 
-                    {/* 音频提取说明 */}}
+                    {/* 音频提取说明 */}
                     {dict.guide.platformSupport.audioTip && (
                         <div className="p-3 bg-muted/50 rounded-lg space-y-1 border border-border/50 mt-2">
                             <p className="text-sm font-medium flex items-center gap-1.5">
