@@ -9,7 +9,6 @@ import { PlatformGuideCard } from "@/components/downloader/PlatformGuideCard"
 import { FreeSupportCard } from "@/components/downloader/FreeSupportCard"
 import { ViewportSideRailAd } from "@/components/ads/viewport-side-rail-ad"
 import { SideRailAd } from "@/components/ads/side-rail-ad"
-import { AD_MOBILE_HEIGHT } from "@/lib/constants"
 
 export default async function HomePage({
     params,
@@ -60,7 +59,7 @@ export default async function HomePage({
                     </>
                 }
                 mobileAd={
-                    <SideRailAd slot="5740014745" height={AD_MOBILE_HEIGHT} />
+                    <SideRailAd slot="5740014745" />
                 }
                 mobileGuides={
                     <>

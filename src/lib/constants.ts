@@ -23,4 +23,3 @@ export const AD_LOAD_TIMEOUT = 10000; // 广告加载超时时间，单位：毫
 export const AD_CHECK_INTERVAL = 500; // 广告状态检查间隔，单位：毫秒
 export const AD_MAX_CHECKS = 20; // 最大检查次数
 export const AD_MIN_HEIGHT = 250; // 广告最小高度，单位：px
-export const AD_MOBILE_HEIGHT = 200; // 移动端横幅广告固定高度，单位：px
