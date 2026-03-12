@@ -92,10 +92,18 @@ export function ResultCard({ result, onClose }: ResultCardProps) {
  */
 function SinglePartButtons({ result }: { result: NonNullable<UnifiedParseResult['data']> }) {
     const dict = useHomeDictionary()
+    const [videoLoading, setVideoLoading] = useState(false);
+    const [audioLoading, setAudioLoading] = useState(false);
     const showExtractAudio = result.platform === 'douyin' || result.platform === 'xiaohongshu' || result.platform === 'tiktok';
     const hideVideoDownload = result.platform === 'bilibili_tv';
     const videoDownloadUrl = result.downloadVideoUrl || result.originDownloadVideoUrl;
     const audioDownloadUrl = result.downloadAudioUrl || result.originDownloadAudioUrl || null;
+
+    const handleDownload = (url: string, setLoading: (v: boolean) => void) => {
+        setLoading(true);
+        downloadFile(url);
+        setTimeout(() => setLoading(false), 1500);
+    };
 
     return (
         <>
@@ -104,10 +112,10 @@ function SinglePartButtons({ result }: { result: NonNullable<UnifiedParseResult[
                     <Button
                         variant="outline"
                         className="flex items-center justify-center gap-2"
-                        onClick={() => {
-                            downloadFile(videoDownloadUrl)
-                        }}
+                        disabled={videoLoading}
+                        onClick={() => handleDownload(videoDownloadUrl, setVideoLoading)}
                     >
+                        {videoLoading && <Loader2 className="h-4 w-4 animate-spin" />}
                         {dict.result.downloadVideo}
                     </Button>
                 )}
@@ -115,10 +123,10 @@ function SinglePartButtons({ result }: { result: NonNullable<UnifiedParseResult[
                     <Button
                         variant="outline"
                         className="flex items-center justify-center gap-2"
-                        onClick={() => {
-                            downloadFile(audioDownloadUrl)
-                        }}
+                        disabled={audioLoading}
+                        onClick={() => handleDownload(audioDownloadUrl, setAudioLoading)}
                     >
+                        {audioLoading && <Loader2 className="h-4 w-4 animate-spin" />}
                         {dict.result.downloadAudio}
                     </Button>
                 )}
@@ -139,6 +147,20 @@ function SinglePartButtons({ result }: { result: NonNullable<UnifiedParseResult[
  */
 function MultiPartList({ pages, currentPage }: { pages: PageInfo[]; currentPage?: number }) {
     const dict = useHomeDictionary()
+    const [loadingKeys, setLoadingKeys] = useState<Set<string>>(new Set());
+
+    const handleDownload = (url: string, key: string) => {
+        setLoadingKeys(prev => new Set(prev).add(key));
+        downloadFile(url);
+        setTimeout(() => {
+            setLoadingKeys(prev => {
+                const next = new Set(prev);
+                next.delete(key);
+                return next;
+            });
+        }, 1500);
+    };
+
     return (
         <div className="space-y-2">
             <div className="text-sm text-muted-foreground">
@@ -175,8 +197,10 @@ function MultiPartList({ pages, currentPage }: { pages: PageInfo[]; currentPage?
                                 <Button
                                     variant="outline"
                                     size="sm"
-                                    onClick={() => downloadFile(page.downloadVideoUrl!)}
+                                    disabled={loadingKeys.has(`${page.page}-video`)}
+                                    onClick={() => handleDownload(page.downloadVideoUrl!, `${page.page}-video`)}
                                 >
+                                    {loadingKeys.has(`${page.page}-video`) && <Loader2 className="h-3 w-3 animate-spin mr-1" />}
                                     {dict.result.downloadVideo}
                                 </Button>
                             )}
@@ -184,8 +208,10 @@ function MultiPartList({ pages, currentPage }: { pages: PageInfo[]; currentPage?
                                 <Button
                                     variant="outline"
                                     size="sm"
-                                    onClick={() => downloadFile(page.downloadAudioUrl!)}
+                                    disabled={loadingKeys.has(`${page.page}-audio`)}
+                                    onClick={() => handleDownload(page.downloadAudioUrl!, `${page.page}-audio`)}
                                 >
+                                    {loadingKeys.has(`${page.page}-audio`) && <Loader2 className="h-3 w-3 animate-spin mr-1" />}
                                     {dict.result.downloadAudio}
                                 </Button>
                             )}
