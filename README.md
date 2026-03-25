@@ -126,3 +126,23 @@ pnpm build
 ```
 
 如需继续使用原始 Next.js 构建链路，可改用 `pnpm build:next`。
+
+Cloudflare Workers 部署请使用：
+
+```bash
+pnpm deploy
+```
+
+如果平台已经先执行过 `pnpm build`，部署命令请改为：
+
+```bash
+pnpm deploy:ci
+```
+
+预览部署可使用：
+
+```bash
+pnpm deploy:preview
+```
+
+不要直接使用 `wrangler deploy` 作为部署命令。当前项目基于 `vinext`，应由 `vinext deploy` 负责生成所需配置、构建并调用 Wrangler。
